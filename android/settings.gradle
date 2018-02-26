@@ -1,0 +1,3 @@
+rootProject.name = 'Knapsack'
+
+include ':app'
