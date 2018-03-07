@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TextInput, Button } from 'react-native';
+import { View, Text, Image, TextInput, TouchableOpacity, Button } from 'react-native';
 
 class Login extends Component {
   state = {
@@ -11,21 +11,28 @@ class Login extends Component {
     return (
       <View>
         <View style={styles.containerStyle}>
-          <Text style={styles.imageStyle}></Text>
+
+          <Image style = {styles.imageStyle} source={require('../img/knapsack_logo.png')} />
           <Text style={styles.headerText}>Knapsack</Text>
-          <Text>Store all your favorite content in one place</Text>
+          <Text style = {styles.sloganText}>Store all your favorite content in one place.</Text>
         </View>
         <TextInput style={styles.inputStyle} onChangeText={ (text) => this.setState( {userName: text} ) }
         value={this.state.userName} />
         <TextInput style={styles.inputStyle} onChangeText={ (text) => this.setState( {password: text} ) }
         value={this.state.password} />
 
-        <View style={styles.buttonStyle}>
-          <Button style={styles.buttonStyle} onPress={()=> alert("Login")} title="Login" />
+        <View>
+        <TouchableOpacity accessibilityLabel={'Click to log in!'} onPress={() => alert("Login")} style={styles.buttonStyle} accessible={true}>
+          <Text style = {styles.buttonText}> LOGIN </Text>
+         </TouchableOpacity>
+        {/*  <Button accessible={true} accessibilityLabel={'Click to log in!'} style={styles.buttonStyle} onPress={()=> alert("Login")} title="Login" /> */ }
         </View>
 
-        <View style={styles.buttonStyle}>
-          <Button onPress={() => alert("Sign Up")} title="Sign Up" />
+        <View>
+        <TouchableOpacity accessibilityLabel={'Click to sign up!'}  onPress={() => alert("Sign Up")} style={styles.buttonStyle} accessible={true}>
+          <Text style = {styles.buttonText} > SIGN UP  </Text>
+         </TouchableOpacity>
+        { /*  <Button onPress={() => alert("Sign Up")} title="Sign Up" /> */}
         </View>
       </View>
 
@@ -43,13 +50,15 @@ const styles= {
   },
   headerText: {
     fontSize: 68,
+    color: "#57d1c9"
+  },
+  sloganText: {
+    fontStyle: 'italic'
   },
   imageStyle: {
     height: 200,
     width: 200,
     borderColor: '#ddd',
-    borderWidth: 5,
-    borderRadius: 30,
   },
   inputStyle: {
     borderBottomWidth: 1,
@@ -60,11 +69,20 @@ const styles= {
     fontSize: 20
   },
   buttonStyle: {
-    backgroundColor: '#EDF9FE',
+    backgroundColor: '#57d1c9',
     marginTop: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'relative'
+    position: 'relative',
+    width: 300,
+    height: 50,
+    borderRadius: 5,
+    marginLeft: 55
+  },
+  buttonText: {
+    fontSize: 25,
+    color: "black",
+    fontWeight: "bold"
   }
 
 }
