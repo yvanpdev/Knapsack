@@ -5,7 +5,7 @@ import Login from './src/components/Login';
 
 const App = () => (
     <View>
-      <Header headerText={'Knapsack under construction!'} />
+      <Header headerText={''} />
       <Login />
     </View>
 

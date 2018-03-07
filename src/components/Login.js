@@ -3,8 +3,8 @@ import { View, Text, Image, TextInput, TouchableOpacity, Button } from 'react-na
 
 class Login extends Component {
   state = {
-     userName: 'User Name',
-     password: 'Password'
+     userName: '',
+     password: ''
   }
 
   render() {
@@ -16,9 +16,9 @@ class Login extends Component {
           <Text style={styles.headerText}>Knapsack</Text>
           <Text style = {styles.sloganText}>Store all your favorite content in one place.</Text>
         </View>
-        <TextInput style={styles.inputStyle} onChangeText={ (text) => this.setState( {userName: text} ) }
+        <TextInput style={styles.inputStyle} placeholder="Username" onChangeText={ (text) => this.setState( {userName: text} ) }
         value={this.state.userName} />
-        <TextInput style={styles.inputStyle} onChangeText={ (text) => this.setState( {password: text} ) }
+        <TextInput style={styles.inputStyle} placeholder="Password" onChangeText={ (text) => this.setState( {password: text} ) }
         value={this.state.password} />
 
         <View>
@@ -74,7 +74,7 @@ const styles= {
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
-    width: 300,
+    width: 260,
     height: 50,
     borderRadius: 5,
     marginLeft: 55
