@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Image, TextInput, TouchableOpacity, Button } from 'react-native';
+import { AppRegistry, View, Text, Image, TextInput, TouchableOpacity, Button } from 'react-native';
 
 class Login extends Component {
   state = {
@@ -18,7 +18,7 @@ class Login extends Component {
         </View>
         <TextInput style={styles.inputStyle} placeholder="Username" onChangeText={ (text) => this.setState( {userName: text} ) }
         value={this.state.userName} />
-        <TextInput style={styles.inputStyle} placeholder="Password" onChangeText={ (text) => this.setState( {password: text} ) }
+        <TextInput secureTextEntry={true} style={styles.inputStyle} placeholder="Password" onChangeText={ (text) => this.setState( {password: text} ) }
         value={this.state.password} />
 
         <View>
