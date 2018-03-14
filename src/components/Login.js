@@ -22,7 +22,7 @@ class Login extends Component {
         value={this.state.password} />
 
         <View>
-        <TouchableOpacity accessibilityLabel={'Click to log in!'} onPress={() => alert("Login")} style={styles.buttonStyle} accessible={true}>
+        <TouchableOpacity accessibilityLabel={'Click to log in!'} onPress={() => this.props.navigation.navigate('Recommend')} style={styles.buttonStyle} accessible={true}>
           <Text style = {styles.buttonText}> LOGIN </Text>
          </TouchableOpacity>
         {/*  <Button accessible={true} accessibilityLabel={'Click to log in!'} style={styles.buttonStyle} onPress={()=> alert("Login")} title="Login" /> */ }

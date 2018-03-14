@@ -8,8 +8,10 @@
     "emulator": "/home/cmenedes/Android/Sdk/tools/emulator -avd Nexus_5X_API_23 -netdelay none -netspeed full"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "react": "16.2.0",
-    "react-native": "0.53.3"
+    "react-native": "0.53.3",
+    "react-navigation": "^1.5.2"
   },
   "devDependencies": {
     "babel-jest": "22.4.1",
