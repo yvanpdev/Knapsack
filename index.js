@@ -3,6 +3,7 @@ import { AppRegistry, View } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import Login from './src/components/Login';
 import RecommendList from './src/components/RecommendList';
+import SignUp from './src/components/SignUp';
 
 class App extends React.Component {
   render() {
@@ -16,7 +17,10 @@ const RootStack = StackNavigator(
       screen: Login,
     },
     Recommend: {
-      screen: RecommendList
+      screen: RecommendList,
+    },
+    Sign_Up: {
+      screen: SignUp
     }
 
   },
