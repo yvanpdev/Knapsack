@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
-import { AppRegistry, View, Text, Image, TextInput, TouchableOpacity, Button } from 'react-native';
+import { View, Text, Image } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+import { Button, Input, CardSection } from './common';
+import Logo from '../img/knapsack_logo.png';
+
 
 class Login extends Component {
   state = {
@@ -12,35 +16,60 @@ class Login extends Component {
       <View>
         <View style={styles.containerStyle}>
 
-          <Image style = {styles.imageStyle} source={require('../img/knapsack_logo.png')} />
+          <Image style={styles.imageStyle} source={Logo} />
           <Text style={styles.headerText}>Knapsack</Text>
-          <Text style = {styles.sloganText}>Store all your favorite content in one place.</Text>
+          <Text style={styles.sloganText}>Store all your favorite content in one place.</Text>
         </View>
-        <TextInput style={styles.inputStyle} placeholder="Username" onChangeText={ (text) => this.setState( {userName: text} ) }
-        value={this.state.userName} />
-        <TextInput secureTextEntry={true} style={styles.inputStyle} placeholder="Password" onChangeText={ (text) => this.setState( {password: text} ) }
-        value={this.state.password} />
+        <CardSection>
+          <Input
+            style={styles.inputStyle}
+            label="Email"
+            placeholder="email@gmail.com"
+            onChangeText={(text) => this.setState({ userName: text })}
+            value={this.state.userName}
+          />
+        </CardSection>
 
-        <View>
-        <TouchableOpacity accessibilityLabel={'Click to log in!'} onPress={() => this.props.navigation.navigate('Recommend')} style={styles.buttonStyle} accessible={true}>
-          <Text style = {styles.buttonText}> LOGIN </Text>
-         </TouchableOpacity>
-        {/*  <Button accessible={true} accessibilityLabel={'Click to log in!'} style={styles.buttonStyle} onPress={()=> alert("Login")} title="Login" /> */ }
-        </View>
+        <CardSection>
+          <Input
+            secureTextEntry
+            style={styles.inputStyle}
+            label="Password"
+            placeholder="password"
+            onChangeText={(text) => this.setState({ password: text })}
+            value={this.state.password}
+          />
+        </CardSection>
 
-        <View>
-        <TouchableOpacity accessibilityLabel={'Click to sign up!'}  onPress={() => alert("Sign Up")} style={styles.buttonStyle} accessible={true}>
-          <Text style = {styles.buttonText} > SIGN UP  </Text>
-         </TouchableOpacity>
-        { /*  <Button onPress={() => alert("Sign Up")} title="Sign Up" /> */}
-        </View>
+        <CardSection>
+          <Button
+            accessibilityLabel={'Click to log in!'}
+            onPress={() => Actions.main()}
+            style={{ backgroundColor: '#57d1c9' }}
+            accessible
+          >
+            <Text style={styles.buttonText}> LOGIN </Text>
+           </Button>
+        </CardSection>
+
+        <CardSection>
+          <Button
+            accessibilityLabel={'Click to sign up!'}
+            onPress={() => Actions.signUp()}
+            style={{ backgroundColor: '#57d1c9' }}
+            accessible
+          >
+              <Text style={styles.buttonText}>SIGN UP</Text>
+          </Button>
+        </CardSection>
+
       </View>
 
     );
   }
-};
+}
 
-const styles= {
+const styles = {
   containerStyle: {
     padding: 5,
     backgroundColor: '#fff',
@@ -50,40 +79,17 @@ const styles= {
   },
   headerText: {
     fontSize: 68,
-    color: "#57d1c9"
+    color: '#57d1c9'
   },
   sloganText: {
     fontStyle: 'italic'
   },
   imageStyle: {
+    marginTop: 20,
     height: 200,
     width: 200,
     borderColor: '#ddd',
-  },
-  inputStyle: {
-    borderBottomWidth: 1,
-    backgroundColor: '#ddd',
-    borderColor: '#EDF9FE',
-    padding: 5,
-    margin: 5,
-    fontSize: 20
-  },
-  buttonStyle: {
-    backgroundColor: '#57d1c9',
-    marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-    width: 260,
-    height: 50,
-    borderRadius: 5,
-    marginLeft: 55
-  },
-  buttonText: {
-    fontSize: 25,
-    color: "black",
-    fontWeight: "bold"
   }
+};
 
-}
 export default Login;

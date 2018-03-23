@@ -1,7 +1,7 @@
 import React from 'react';
 import { Text, View, Image } from 'react-native';
-import Card from './Card';
-import CardSection from './CardSection';
+import { Card, CardSection } from './common';
+
 
 const RecommendDetail = ({ video }) => {
   const { title, artist, thumbnail_image, image } = video;
