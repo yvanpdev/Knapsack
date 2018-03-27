@@ -1,18 +1,37 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
+import firebase from 'firebase';
 import { ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Spinner } from './common';
 
 class SignUp extends Component {
   state = {
-     fname: '',
-     lname: '',
+     firstName: '',
+     lastName: '',
      userName: '',
      password: '',
      email: '',
      favGenres: [],
      passwordLength: '',
-     passwordShort: true
+     passwordShort: true,
+     loading: false
   }
+
+onButtonPress() {
+  const { email, password, firstName, lastName, userName } = this.state;
+
+  this.setState({ loading: true });
+
+firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then((user) => {
+      firebase.database().ref(`/users/${user.uid}/userinfo`)
+        .push({ firstName, lastName, userName, email });
+    })
+    .then(() => {
+      Actions.pop();
+    });
+}
+
 checkPassword(text) {
   this.setState({ password: text });
 
@@ -31,6 +50,22 @@ checkPassword(text) {
   }
 }
 
+  renderButton() {
+    if (this.state.loading) {
+      return <Spinner size="large" />;
+    }
+
+    return (
+      <TouchableOpacity
+        accessibilityLabel={'Click to Sign Up!'}
+        onPress={this.onButtonPress.bind(this)}
+        style={styles.buttonStyle}
+        accessible
+      >
+        <Text style={styles.buttonText}> SUBMIT </Text>
+      </TouchableOpacity>
+    );
+  }
   render() {
     return (
       <ScrollView>
@@ -41,7 +76,7 @@ checkPassword(text) {
           onSubmitEditing={() => this.firstRef.focus()}
           returnKeyType='next'
           autoFocus
-          onChangeText={ (text) => this.setState({ fname: text })}
+          onChangeText={(firstName) => this.setState({ firstName })}
           value={this.state.fname}
         />
 
@@ -51,7 +86,7 @@ checkPassword(text) {
           ref={firstRef => this.firstRef = firstRef}
           onSubmitEditing={() => this.lastRef.focus()}
           returnKeyType='next'
-          onChangeText={(text) => this.setState({ lname: text })}
+          onChangeText={(lastName) => this.setState({ lastName })}
           value={this.state.lname}
         />
 
@@ -61,7 +96,7 @@ checkPassword(text) {
           ref={lastRef => this.lastRef = lastRef}
           onSubmitEditing={() => this.emailRef.focus()}
           returnKeyType='next'
-          onChangeText={ (text) => this.setState({ email: text })}
+          onChangeText={(email) => this.setState({ email })}
           value={this.state.email}
         />
 
@@ -71,7 +106,7 @@ checkPassword(text) {
           ref={emailRef => this.emailRef = emailRef}
           onSubmitEditing={() => this.passwordRef.focus()}
           returnKeyType='next'
-          onChangeText={(text) => this.setState({ userName: text })}
+          onChangeText={(userName) => this.setState({ userName })}
           value={this.state.userName}
         />
 
@@ -84,20 +119,13 @@ checkPassword(text) {
           onSubmitEditing={() => this.passwordRef.focus()}
           returnKeyType='next'
           placeholder="Password"
-          onChangeText={(text) => this.checkPassword(text)}
+          onChangeText={this.checkPassword.bind(this)}
           value={this.state.password}
         />
 
         <Text style={styles.passText}> {this.state.passwordLength} </Text>
 
-        <TouchableOpacity
-          accessibilityLabel={'Click to Sign Up!'}
-          onPress={() => Actions.pop()}
-          style={styles.buttonStyle}
-          accessible
-        >
-          <Text style={styles.buttonText}> SUBMIT </Text>
-        </TouchableOpacity>
+        {this.renderButton()}
 
       </ScrollView>
     );
