@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
-import { ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
-import { Spinner } from './common';
+import { ScrollView, Text, } from 'react-native';
+import { Spinner, Input, Button, Card, CardSection } from './common';
 
 class SignUp extends Component {
   state = {
@@ -56,77 +56,83 @@ checkPassword(text) {
     }
 
     return (
-      <TouchableOpacity
+      <Button
         accessibilityLabel={'Click to Sign Up!'}
         onPress={this.onButtonPress.bind(this)}
         style={styles.buttonStyle}
         accessible
       >
         <Text style={styles.buttonText}> SUBMIT </Text>
-      </TouchableOpacity>
+      </Button>
     );
   }
   render() {
     return (
       <ScrollView>
-        <Text style={styles.headerText}> Sign Up </Text>
-        <TextInput
-          placeholder="First Name"
-          style={styles.inputStyle}
-          onSubmitEditing={() => this.firstRef.focus()}
-          returnKeyType='next'
-          autoFocus
-          onChangeText={(firstName) => this.setState({ firstName })}
-          value={this.state.fname}
-        />
+        <Card>
+          <CardSection style={{ justifyContent: 'center' }}>
+            <Text style={styles.headerText}> Sign Up </Text>
+          </CardSection>
 
-        <TextInput
-          placeholder="Last Name"
-          style={styles.inputStyle}
-          ref={firstRef => this.firstRef = firstRef}
-          onSubmitEditing={() => this.lastRef.focus()}
-          returnKeyType='next'
-          onChangeText={(lastName) => this.setState({ lastName })}
-          value={this.state.lname}
-        />
+          <CardSection>
+            <Input
+              label="First Name"
+              placeholder="First Name"
+              style={styles.inputStyle}
+              onSubmitEditing={() => this.firstRef.focus()}
+              returnKeyType='next'
+              autoFocus
+              onChangeText={(firstName) => this.setState({ firstName })}
+              value={this.state.fname}
+            />
+          </CardSection>
 
-        <TextInput
-          placeholder="Email"
-          style={styles.inputStyle}
-          ref={lastRef => this.lastRef = lastRef}
-          onSubmitEditing={() => this.emailRef.focus()}
-          returnKeyType='next'
-          onChangeText={(email) => this.setState({ email })}
-          value={this.state.email}
-        />
+          <CardSection>
+            <Input
+              label="Last Name"
+              style={styles.inputStyle}
+              placeholder="Last Name"
+              onChangeText={(lastName) => this.setState({ lastName })}
+              value={this.state.lname}
+            />
+          </CardSection>
 
-        <TextInput
-          placeholder="Username"
-          style={styles.inputStyle}
-          ref={emailRef => this.emailRef = emailRef}
-          onSubmitEditing={() => this.passwordRef.focus()}
-          returnKeyType='next'
-          onChangeText={(userName) => this.setState({ userName })}
-          value={this.state.userName}
-        />
+          <CardSection>
+            <Input
+              label="Email"
+              style={styles.inputStyle}
+              placeholder="Email"
+              onChangeText={(email) => this.setState({ email })}
+              value={this.state.email}
+            />
+          </CardSection>
 
-        <TextInput
-          underlineColorAndroid={'rgba(0,0,0,0.35)'}
-          autoCorrect={false}
-          style={[styles.inputStyle, this.state.passwordShort && styles.shortStyle]}
-          secureTextEntry
-          ref={passwordRef => this.passwordRef = passwordRef}
-          onSubmitEditing={() => this.passwordRef.focus()}
-          returnKeyType='next'
-          placeholder="Password"
-          onChangeText={this.checkPassword.bind(this)}
-          value={this.state.password}
-        />
+          <CardSection>
+            <Input
+              label="Username"
+              style={styles.inputStyle}
+              placeholder="Username"
+              onChangeText={(userName) => this.setState({ userName })}
+              value={this.state.userName}
+            />
+          </CardSection>
 
-        <Text style={styles.passText}> {this.state.passwordLength} </Text>
+          <CardSection>
+            <Input
+              label="Password"
+              style={styles.inputStyle}
+              secureTextEntry
+              placeholder="Password"
+              onChangeText={this.checkPassword.bind(this)}
+              value={this.state.password}
+            />
+            <Text style={styles.passText}> {this.state.passwordLength} </Text>
+          </CardSection>
 
-        {this.renderButton()}
-
+          <CardSection>
+            {this.renderButton()}
+          </CardSection>
+        </Card>
       </ScrollView>
     );
   }
@@ -134,14 +140,16 @@ checkPassword(text) {
 }
 const styles = {
   inputStyle: {
-    fontSize: 20,
+    fontSize: 18,
     margin: 20,
-    padding: 5,
+    padding: 5
   },
   headerText: {
     fontSize: 30,
     color: '#57d1c9',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 30,
+    marginBottom: 30
   },
   shortStyle: {
     borderColor: '#e71636',
@@ -149,14 +157,6 @@ const styles = {
   },
   buttonStyle: {
     backgroundColor: '#57d1c9',
-    marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-    width: 260,
-    height: 50,
-    borderRadius: 5,
-    marginLeft: 55
   },
   buttonText: {
     fontSize: 25,
