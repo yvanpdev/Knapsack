@@ -1,13 +1,4 @@
-import React from 'react';
-import { AppRegistry, View } from 'react-native';
-import Header from './src/components/Header';
-
-const App = () => (
-    <View>
-      <Header headerText={'Knapsack under construction!'} />
-    </View>
-
-);
-
+import { AppRegistry } from 'react-native';
+import App from './src/app';
 
 AppRegistry.registerComponent('Knapsack', () => App);
