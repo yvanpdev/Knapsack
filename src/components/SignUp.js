@@ -19,7 +19,8 @@ class SignUp extends Component {
      passwordShort: true,
      loading: false
   };
-  //this.checkPassword = this.checkPassword.bind(this);
+  this.checkPassword = this.checkPassword.bind(this);
+  this.onButtonPress = this.onButtonPress.bind(this);
 }
 onButtonPress() {
   const { email, password, firstName, lastName, userName } = this.state;
@@ -63,7 +64,7 @@ checkPassword(text) {
     return (
       <TouchableOpacity
         accessibilityLabel={'Click to Sign Up!'}
-        onPress={this.onButtonPress.bind(this)}
+        onPress={this.onButtonPress}
         style={styles.buttonStyle}
         accessible
       >
@@ -124,7 +125,7 @@ checkPassword(text) {
           onSubmitEditing={() => this.passwordRef.focus()}
           returnKeyType='next'
           placeholder="Password"
-          onChangeText={this.checkPassword.bind(this)}
+          onChangeText={this.checkPassword}
           value={this.state.password}
         />
 
