@@ -3,9 +3,12 @@ import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 import { ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
 import { Spinner } from './common';
+import * as constants from '../constants.js';
 
 class SignUp extends Component {
-  state = {
+  constructor(props) {
+    super(props);
+  this.state = {
      firstName: '',
      lastName: '',
      userName: '',
@@ -15,32 +18,34 @@ class SignUp extends Component {
      passwordLength: '',
      passwordShort: true,
      loading: false
-  }
-
+  };
+  //this.checkPassword = this.checkPassword.bind(this);
+}
 onButtonPress() {
   const { email, password, firstName, lastName, userName } = this.state;
 
   this.setState({ loading: true });
 
-firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      firebase.database().ref(`/users/${user.uid}/userinfo`)
-        .push({ firstName, lastName, userName, email });
-    })
-    .then(() => {
-      Actions.pop();
-    });
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        firebase.database().ref(`/users/${user.uid}/userinfo`)
+          .push({ firstName, lastName, userName, email });
+      })
+      .then(() => {
+        Actions.pop();
+      });
 }
 
 checkPassword(text) {
   this.setState({ password: text });
 
-  if (text.length < 6) {
+  if (text.length < constants.MINIMUM_PASSWORD_LENGTH) {
     this.setState({
-      passwordLength: 'password must be at least 6 characters',
+      passwordLength: `password must be at least ${constants.MINIMUM_PASSWORD_LENGTH} characters`,
       passwordShort: true
     });
-  } else if (text.length < 25 && text.length > 5) {
+  } else if (text.length < constants.MAXIMUM_PASSWORD_LENGTH
+     && text.length > constants.MINIMUM_PASSWORD_LENGTH) {
     this.setState({
       passwordLength: this.state.passwordShort,
       passwordShort: false
