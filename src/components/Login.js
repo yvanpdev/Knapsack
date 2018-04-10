@@ -7,31 +7,43 @@ import Logo from '../img/knapsack_logo.png';
 
 
 class Login extends Component {
-  state = {
+  constructor(props) {
+  super(props);
+  this.state = {
      email: '',
      password: '',
      error: '',
      loading: false
-  }
+  };
+  this.onPasswordChange = this.onPasswordChange.bind(this);
+  this.onEmailChange = this.onEmailChange.bind(this);
+}
 
-  onLogginSuccess() {
+  onLoginSuccess() {
     this.setState({ email: '', password: '', loading: false, error: '' });
     Actions.main();
   }
 
-  onLogginFail() {
+  onLoginFail() {
     this.setState({ error: 'Authentication Failed.', loading: false });
   }
-
 
   onButtonPress() {
     const { email, password } = this.state;
 
    this.setState({ error: '', loading: true });
 
-    firebase.auth().signInWithEmailAndPassword(email, password)
-      .then(this.onLogginSuccess.bind(this))
-      .catch(this.onLogginFail.bind(this));
+  firebase.auth().signInWithEmailAndPassword(email, password)
+    .then(this.onLoginSuccess.bind(this))
+    .catch(this.onLoginFail.bind(this));
+  }
+
+  onPasswordChange(password) {
+    this.setState({ password });
+  }
+
+  onEmailChange(email) {
+    this.setState({ email });
   }
 
   renderLoginButton() {
@@ -41,8 +53,7 @@ class Login extends Component {
 
     return (
       <Button
-        accessibility
-        Label={'Click to log in!'}
+        accessibilityLabel={'Click to log in!'}
         onPress={this.onButtonPress.bind(this)}
         style={{ backgroundColor: '#57d1c9' }}
         accessible
@@ -79,7 +90,7 @@ class Login extends Component {
             style={styles.inputStyle}
             label="Email"
             placeholder="email@gmail.com"
-            onChangeText={(email) => this.setState({ email })}
+            onChangeText={this.onEmailChange}
             value={this.state.userName}
           />
         </CardSection>
@@ -90,7 +101,7 @@ class Login extends Component {
             style={styles.inputStyle}
             label="Password"
             placeholder="password"
-            onChangeText={(password) => this.setState({ password })}
+            onChangeText={this.onPasswordChange}
             value={this.state.password}
           />
         </CardSection>
