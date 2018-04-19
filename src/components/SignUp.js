@@ -1,11 +1,14 @@
 import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
-import { ScrollView, Text, } from 'react-native';
-import { Spinner, Input, Button, Card, CardSection } from './common';
+import { ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
+import { Spinner } from './common';
+import * as constants from '../constants.js';
 
 class SignUp extends Component {
-  state = {
+  constructor(props) {
+    super(props);
+  this.state = {
      firstName: '',
      lastName: '',
      userName: '',
@@ -15,32 +18,35 @@ class SignUp extends Component {
      passwordLength: '',
      passwordShort: true,
      loading: false
-  }
-
+  };
+  this.checkPassword = this.checkPassword.bind(this);
+  this.onButtonPress = this.onButtonPress.bind(this);
+}
 onButtonPress() {
   const { email, password, firstName, lastName, userName } = this.state;
 
   this.setState({ loading: true });
 
-firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then((user) => {
-      firebase.database().ref(`/users/${user.uid}/userinfo`)
-        .push({ firstName, lastName, userName, email });
-    })
-    .then(() => {
-      Actions.pop();
-    });
+  firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then((user) => {
+        firebase.database().ref(`/users/${user.uid}/userinfo`)
+          .push({ firstName, lastName, userName, email });
+      })
+      .then(() => {
+        Actions.pop();
+      });
 }
 
 checkPassword(text) {
   this.setState({ password: text });
 
-  if (text.length < 6) {
+  if (text.length < constants.MINIMUM_PASSWORD_LENGTH) {
     this.setState({
-      passwordLength: 'password must be at least 6 characters',
+      passwordLength: `password must be at least ${constants.MINIMUM_PASSWORD_LENGTH} characters`,
       passwordShort: true
     });
-  } else if (text.length < 25 && text.length > 5) {
+  } else if (text.length < constants.MAXIMUM_PASSWORD_LENGTH
+     && text.length > constants.MINIMUM_PASSWORD_LENGTH) {
     this.setState({
       passwordLength: this.state.passwordShort,
       passwordShort: false
@@ -58,7 +64,7 @@ checkPassword(text) {
     return (
       <Button
         accessibilityLabel={'Click to Sign Up!'}
-        onPress={this.onButtonPress.bind(this)}
+        onPress={this.onButtonPress}
         style={styles.buttonStyle}
         accessible
       >
@@ -69,70 +75,64 @@ checkPassword(text) {
   render() {
     return (
       <ScrollView>
-        <Card>
-          <CardSection style={{ justifyContent: 'center' }}>
-            <Text style={styles.headerText}> Sign Up </Text>
-          </CardSection>
+        <Text style={styles.headerText}> Sign Up </Text>
+        <TextInput
+          placeholder="First Name"
+          style={styles.inputStyle}
+          onSubmitEditing={() => this.firstRef.focus()}
+          returnKeyType='next'
+          autoFocus
+          onChangeText={(firstName) => this.setState({ firstName })}
+          value={this.state.fname}
+        />
 
-          <CardSection>
-            <Input
-              label="First Name"
-              placeholder="First Name"
-              style={styles.inputStyle}
-              onSubmitEditing={() => this.firstRef.focus()}
-              returnKeyType='next'
-              autoFocus
-              onChangeText={(firstName) => this.setState({ firstName })}
-              value={this.state.fname}
-            />
-          </CardSection>
+        <TextInput
+          placeholder="Last Name"
+          style={styles.inputStyle}
+          ref={firstRef => this.firstRef = firstRef}
+          onSubmitEditing={() => this.lastRef.focus()}
+          returnKeyType='next'
+          onChangeText={(lastName) => this.setState({ lastName })}
+          value={this.state.lname}
+        />
 
-          <CardSection>
-            <Input
-              label="Last Name"
-              style={styles.inputStyle}
-              placeholder="Last Name"
-              onChangeText={(lastName) => this.setState({ lastName })}
-              value={this.state.lname}
-            />
-          </CardSection>
+        <TextInput
+          placeholder="Email"
+          style={styles.inputStyle}
+          ref={lastRef => this.lastRef = lastRef}
+          onSubmitEditing={() => this.emailRef.focus()}
+          returnKeyType='next'
+          onChangeText={(email) => this.setState({ email })}
+          value={this.state.email}
+        />
 
-          <CardSection>
-            <Input
-              label="Email"
-              style={styles.inputStyle}
-              placeholder="Email"
-              onChangeText={(email) => this.setState({ email })}
-              value={this.state.email}
-            />
-          </CardSection>
+        <TextInput
+          placeholder="Username"
+          style={styles.inputStyle}
+          ref={emailRef => this.emailRef = emailRef}
+          onSubmitEditing={() => this.passwordRef.focus()}
+          returnKeyType='next'
+          onChangeText={(userName) => this.setState({ userName })}
+          value={this.state.userName}
+        />
 
-          <CardSection>
-            <Input
-              label="Username"
-              style={styles.inputStyle}
-              placeholder="Username"
-              onChangeText={(userName) => this.setState({ userName })}
-              value={this.state.userName}
-            />
-          </CardSection>
+        <TextInput
+          underlineColorAndroid={'rgba(0,0,0,0.35)'}
+          autoCorrect={false}
+          style={[styles.inputStyle, this.state.passwordShort && styles.shortStyle]}
+          secureTextEntry
+          ref={passwordRef => this.passwordRef = passwordRef}
+          onSubmitEditing={() => this.passwordRef.focus()}
+          returnKeyType='next'
+          placeholder="Password"
+          onChangeText={this.checkPassword}
+          value={this.state.password}
+        />
 
-          <CardSection>
-            <Input
-              label="Password"
-              style={styles.inputStyle}
-              secureTextEntry
-              placeholder="Password"
-              onChangeText={this.checkPassword.bind(this)}
-              value={this.state.password}
-            />
-            <Text style={styles.passText}> {this.state.passwordLength} </Text>
-          </CardSection>
+        <Text style={styles.passText}> {this.state.passwordLength} </Text>
 
-          <CardSection>
-            {this.renderButton()}
-          </CardSection>
-        </Card>
+        {this.renderButton()}
+
       </ScrollView>
     );
   }

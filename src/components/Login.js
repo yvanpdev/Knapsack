@@ -19,12 +19,12 @@ class Login extends Component {
   this.onEmailChange = this.onEmailChange.bind(this);
 }
 
-  onLogginSuccess() {
+  onLoginSuccess() {
     this.setState({ email: '', password: '', loading: false, error: '' });
     Actions.main();
   }
 
-  onLogginFail() {
+  onLoginFail() {
     this.setState({ error: 'Authentication Failed.', loading: false });
   }
 
@@ -34,8 +34,8 @@ class Login extends Component {
    this.setState({ error: '', loading: true });
 
   firebase.auth().signInWithEmailAndPassword(email, password)
-    .then(this.onLogginSuccess.bind(this))
-    .catch(this.onLogginFail.bind(this));
+    .then(this.onLoginSuccess.bind(this))
+    .catch(this.onLoginFail.bind(this));
   }
 
   onPasswordChange(password) {
