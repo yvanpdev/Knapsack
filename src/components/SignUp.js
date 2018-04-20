@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 import { ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
-import { Spinner } from './common';
+import { Spinner, Button } from './common';
 import * as constants from '../constants.js';
 
 class SignUp extends Component {
