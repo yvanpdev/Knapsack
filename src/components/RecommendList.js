@@ -28,7 +28,6 @@ class RecommendList extends Component {
   }
 
   render() {
-    console.log(this.state.videos);
     return (
       <ScrollView>
         {this.renderAlbums()}
