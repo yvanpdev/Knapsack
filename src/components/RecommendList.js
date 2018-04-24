@@ -16,7 +16,6 @@ class RecommendList extends Component {
   }
 
   render() {
-
     return (
       <ScrollView>
         {this.renderAlbums()}
