@@ -4,15 +4,15 @@
   "private": true,
   "scripts": {
     "start": "node node_modules/react-native/local-cli/cli.js start",
-    "test": "jest",
-    "emulator": "/home/cmenedes/Android/Sdk/tools/emulator -avd Nexus_5X_API_23 -netdelay none -netspeed full"
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.18.0",
     "firebase": "^4.12.0",
     "react": "16.2.0",
     "react-native": "0.53.3",
-    "react-native-router-flux": "^4.0.0-beta.28"
+    "react-native-router-flux": "^4.0.0-beta.28",
+    "react-native-vector-icons": "^4.6.0"
   },
   "devDependencies": {
     "babel-jest": "22.4.1",
