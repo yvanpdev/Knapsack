@@ -1,22 +1,33 @@
 import React, { Component } from 'react';
 import { ScrollView } from 'react-native';
-import axios from 'axios';
+import YTSearch from 'youtube-api-search';
 import RecommendDetail from './RecommendDetail';
+import API_KEY from '../../config/YoutubeAPI';
+
 
 class RecommendList extends Component {
-  state = { videos: [] };
+  constructor(props) {
+  super(props);
+  this.state = { videos: [] };
 
-  componentWillMount() {
-    axios.get('https://rallycoding.herokuapp.com/api/music_albums')
-      .then(response => this.setState({ videos: response.data }));
+  this.videoSearch('fortnite');
+  }
+
+  videoSearch(term) {
+    YTSearch({ key: API_KEY, term }, (videos) => {
+      this.setState({
+        videos
+     });
+    });
   }
 
   renderAlbums() {
-    return this.state.videos.map(video => <RecommendDetail key={video.title} video={video} />);
+    return this.state.videos.map(
+      video => <RecommendDetail key={video.snippet.title} video={video} />
+    );
   }
 
   render() {
-
     return (
       <ScrollView>
         {this.renderAlbums()}

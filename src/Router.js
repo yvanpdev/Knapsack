@@ -2,6 +2,7 @@ import React from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import Login from './components/Login';
 import RecommendList from './components/RecommendList';
+import VideoViewer from './components/VideoViewer';
 import SignUp from './components/SignUp';
 
 
@@ -15,6 +16,7 @@ const RouterComponent = () => {
         </Scene>
         <Scene key="main">
           <Scene key="recommendList" title="Recommended List" component={RecommendList} />
+          <Scene key="videoViewer" title="Video Player" component={VideoViewer} />
         </Scene>
       </Scene>
     </Router>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import firebase from 'firebase';
 import { ScrollView, Text, TextInput, TouchableOpacity } from 'react-native';
-import { Spinner } from './common';
+import { Spinner, Button } from './common';
 import * as constants from '../constants.js';
 
 class SignUp extends Component {
@@ -62,14 +62,14 @@ checkPassword(text) {
     }
 
     return (
-      <TouchableOpacity
+      <Button
         accessibilityLabel={'Click to Sign Up!'}
         onPress={this.onButtonPress}
         style={styles.buttonStyle}
         accessible
       >
         <Text style={styles.buttonText}> SUBMIT </Text>
-      </TouchableOpacity>
+      </Button>
     );
   }
   render() {
@@ -140,14 +140,16 @@ checkPassword(text) {
 }
 const styles = {
   inputStyle: {
-    fontSize: 20,
+    fontSize: 18,
     margin: 20,
-    padding: 5,
+    padding: 5
   },
   headerText: {
     fontSize: 30,
     color: '#57d1c9',
-    textAlign: 'center'
+    textAlign: 'center',
+    marginTop: 30,
+    marginBottom: 30
   },
   shortStyle: {
     borderColor: '#e71636',
@@ -155,14 +157,6 @@ const styles = {
   },
   buttonStyle: {
     backgroundColor: '#57d1c9',
-    marginTop: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-    width: 260,
-    height: 50,
-    borderRadius: 5,
-    marginLeft: 55
   },
   buttonText: {
     fontSize: 25,
