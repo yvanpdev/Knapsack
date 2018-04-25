@@ -49,7 +49,7 @@ class RecommendDetail extends Component {
 
           <Button
             accessibilityLabel={'Click to log in!'}
-            onPress={() => Actions.videoViewer({ videoId: this.state.videoId })}
+            onPress={() => Actions.VideoViewer({ videoId: this.state.videoId })}
             style={{ backgroundColor: 'red' }}
             accessible
           >
