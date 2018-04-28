@@ -32,18 +32,15 @@ const RouterComponent = () => {
                 key="Knapsack"
                 title="Knapsack"
                 component={RecommendList}
-                initial
               />
               {/* TODO: Create Knapsack component and replace above */}
             </Scene>
-            <Scene key="Recommended" title="Recommended List" icon={TabIcon}>
+            <Scene key="Recommended" title="Recommended List" icon={TabIcon} initial>
               <Scene
                 key="RecommendList"
                 title="Recommended List"
                 component={RecommendList}
-                initial
               />
-              { /* TODO: Scene for video player content goes here */ }
               <Scene key="VideoViewer" title="Video Player" component={VideoViewer} />
             </Scene>
             <Scene key="Profile" title="Profile" icon={TabIcon}>
@@ -51,7 +48,6 @@ const RouterComponent = () => {
                 key="Profile"
                 title="Profile"
                 component={RecommendList}
-                initial
               />
             {/* TODO: Create Profile component and replace above */}
             </Scene>
