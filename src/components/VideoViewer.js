@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import YouTube from 'react-native-youtube';
+import API_KEY from '../../config/YoutubeAPI';
 
 class VideoViewer extends Component {
   constructor(props) {
@@ -18,6 +19,7 @@ class VideoViewer extends Component {
 
         <YouTube
           ref={(component) => { this.youTubePlayer = component; }}
+          apiKey={API_KEY}
           videoId={this.state.videoId}
           play
           fullscreen
