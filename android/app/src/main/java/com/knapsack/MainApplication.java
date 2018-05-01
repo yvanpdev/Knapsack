@@ -9,6 +9,9 @@ import com.oblador.vectoricons.VectorIconsPackage;
 import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
+import com.inprogress.reactnativeyoutube.ReactNativeYouTube;
+import com.brentvatne.react.ReactVideoPackage;
+import com.oblador.vectoricons.VectorIconsPackage;
 import com.brentvatne.react.ReactVideoPackage;
 import com.oblador.vectoricons.VectorIconsPackage;
 import com.brentvatne.react.ReactVideoPackage;
@@ -35,6 +38,9 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new ReactNativeYouTube(),
+            new ReactVideoPackage(),
+            new VectorIconsPackage(),
             new ReactNativeYouTube(),
             new ReactVideoPackage(),
             new VectorIconsPackage(),

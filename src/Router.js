@@ -4,7 +4,7 @@ import Login from './components/Login';
 import RecommendList from './components/RecommendList';
 import VideoViewer from './components/VideoViewer';
 import SignUp from './components/SignUp';
-
+import Profile from './components/Profile';
 
 const RouterComponent = () => {
   return (
@@ -15,6 +15,7 @@ const RouterComponent = () => {
           <Scene key="signUp" component={SignUp} />
         </Scene>
         <Scene key="main">
+          <Scene key="Profile" title="Profile" component={Profile} />
           <Scene key="recommendList" title="Recommended List" component={RecommendList} />
           <Scene key="videoViewer" title="Video Player" component={VideoViewer} />
         </Scene>
