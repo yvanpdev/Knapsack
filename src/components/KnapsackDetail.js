@@ -8,9 +8,10 @@ class KnapsackDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      imageUrl: props.video.snippet.thumbnails.medium.url,
-      title: props.video.snippet.title,
-      videoId: props.video.id.videoId
+      key: props.key,
+      imageUrl: props.video.key.imageUrl,
+      title: props.video.key.title,
+      videoId: props.video.key.videoId
     };
     this.saveVideo = this.saveVideo.bind(this);
   }
