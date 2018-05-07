@@ -8,10 +8,9 @@ class KnapsackList extends Component {
   constructor(props) {
   super(props);
   this.state = {
-    videos: {
-      key: [],
-      video: []
-    } };
+    key: [],
+    video: []
+   };
 
   this.fetchVideos();
   }
@@ -21,14 +20,22 @@ class KnapsackList extends Component {
 
     firebase.database().ref(`/users/${currentUser.uid}/userinfo/knapsack`)
       .on('value', snapshot => {
-        const payload = snapshot.val();
           this.setState({
-            videos: {
-              key: Object.keys(snapshot.val()),
-              video: payload
-            }
+            key: Object.keys(snapshot.val())
           });
       });
+
+    const videoProm = this.state.key.map(id =>
+      firebase.database().ref(`/users/${currentUser.uid}/userinfo/knapsack`)
+      .child(id)
+      .on('value', snapshot => {
+        const payload = snapshot.val();
+          this.setState({
+              video: payload
+          });
+      })
+    );
+    console.log(this.state.video);
   }
 
   renderAlbums() {
@@ -41,7 +48,7 @@ class KnapsackList extends Component {
     console.log(this.state.videos);
     return (
       <ScrollView>
-        {this.renderAlbums}
+        <Text> HELL </Text>
       </ScrollView>
     );
   }
