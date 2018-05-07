@@ -41,7 +41,7 @@ const RouterComponent = () => {
                 title="Recommended List"
                 component={RecommendList}
               />
-              <Scene key="VideoViewer" title="Video Player" component={VideoViewer} />
+              <Scene key="videoViewer" title="Video Player" component={VideoViewer} />
             </Scene>
             <Scene key="Profile" title="Profile" icon={TabIcon}>
               <Scene
