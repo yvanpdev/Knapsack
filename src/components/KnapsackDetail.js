@@ -8,23 +8,19 @@ class KnapsackDetail extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      key: props.key,
-      imageUrl: props.video.key.imageUrl,
-      title: props.video.key.title,
-      videoId: props.video.key.videoId
+      key: props.video.key,
+      imageUrl: props.video.imageUrl,
+      title: props.video.title,
+      videoId: props.video.videoId
     };
-    this.saveVideo = this.saveVideo.bind(this);
+    this.deleteVideo = this.deleteVideo.bind(this);
   }
 
-  saveVideo() {
+  deleteVideo() {
     const { currentUser } = firebase.auth();
-    firebase.database().ref(`/users/${currentUser.uid}/userinfo/knapsack`)
-      .push({
-          title: this.state.title,
-          imageUrl: this.state.imageUrl,
-          videoId: this.state.videoId
-        })
-      .then(console.log(`save to user id ${currentUser.uid} with key value ${this.state.videoId}`));
+    firebase.database().ref(`/users/${currentUser.uid}/userinfo/knapsack/${this.state.key}`)
+      .remove()
+      .then(console.log(`deleted video id: ${this.state.key}`));
   }
 
   render() {
@@ -59,7 +55,7 @@ class KnapsackDetail extends Component {
 
           <Button
             accessibilityLabel={'Click to Save!'}
-            onPress={() => this.saveVideo()}
+            onPress={() => this.deleteVideo()}
             style={{ backgroundColor: '#57d1c9' }}
             accessible
           >
