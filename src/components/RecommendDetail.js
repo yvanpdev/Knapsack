@@ -13,6 +13,7 @@ class RecommendDetail extends Component {
       videoId: props.video.id.videoId
     };
     this.saveVideo = this.saveVideo.bind(this);
+    this.playVideo = this.playVideo.bind(this);
   }
 
   saveVideo() {
@@ -24,6 +25,10 @@ class RecommendDetail extends Component {
           videoId: this.state.videoId
         })
       .then(console.log(`save to user id ${currentUser.uid} with key value ${this.state.videoId}`));
+  }
+
+  playVideo() {
+    Actions.videoViewer({ videoId: this.state.videoId });
   }
 
   render() {
@@ -48,8 +53,8 @@ class RecommendDetail extends Component {
         <CardSection>
 
           <Button
-            accessibilityLabel={'Click to log in!'}
-            onPress={() => Actions.VideoViewer({ videoId: this.state.videoId })}
+            accessibilityLabel={'Click to play!'}
+            onPress={this.playVideo}
             style={{ backgroundColor: 'red' }}
             accessible
           >
@@ -58,7 +63,7 @@ class RecommendDetail extends Component {
 
           <Button
             accessibilityLabel={'Click to Save!'}
-            onPress={() => this.saveVideo()}
+            onPress={this.saveVideo}
             style={{ backgroundColor: '#57d1c9' }}
             accessible
           >
