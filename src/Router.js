@@ -6,6 +6,7 @@ import RecommendList from './components/RecommendList';
 import VideoViewer from './components/VideoViewer';
 import SignUp from './components/SignUp';
 import { TabIcon } from './components/common/TabIcon.js';
+import Profile from './components/Profile';
 
 
 const RouterComponent = () => {
@@ -47,7 +48,7 @@ const RouterComponent = () => {
               <Scene
                 key="Profile"
                 title="Profile"
-                component={RecommendList}
+                component={Profile}
               />
             {/* TODO: Create Profile component and replace above */}
             </Scene>
