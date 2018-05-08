@@ -28,15 +28,14 @@ const RouterComponent = () => {
             inactiveBackgroundColor={'lightgray'}
             activeBackgroundColor={'#25abf9'}
           >
-            <Scene key="Knapsack" title="Knapsack" icon={TabIcon}>
+            <Scene key="Knapsack" title="Knapsack" icon={TabIcon} initial>
               <Scene
                 key="Knapsack"
                 title="Knapsack"
-                component={RecommendList}
+                component={KnapsackList}
               />
-              {/* TODO: Create Knapsack component and replace above */}
             </Scene>
-            <Scene key="Recommended" title="Recommended List" icon={TabIcon} initial>
+            <Scene key="Recommended" title="Recommended List" icon={TabIcon} >
               <Scene
                 key="RecommendList"
                 title="Recommended List"
