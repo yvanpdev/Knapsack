@@ -120,7 +120,7 @@ class Profile extends Component {
 
   categoryList() {
     return this.state.categories.map(category =>
-      <CardSection key={category}>
+      <CardSection key={category.key}>
         <Text> {category} </Text>
       </CardSection>);
   }
