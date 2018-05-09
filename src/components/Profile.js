@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Avatar } from 'react-native-elements';
 import firebase from 'firebase';
-import { Text, TextInput, Modal, View } from 'react-native';
+import { Text, TextInput, Modal, View, ScrollView } from 'react-native';
 import { CardSection, Button } from './common';
 
 class Profile extends Component {
@@ -14,7 +14,7 @@ class Profile extends Component {
       lastName: '',
       userName: '',
       email: '',
-      categories: '',
+      categories: [],
       newCategory: '',
       showModal: false
     };
@@ -120,9 +120,15 @@ class Profile extends Component {
 
   categoryList() {
     return this.state.categories.map(category =>
-      <CardSection key={category.key}>
-        <Text> {category} </Text>
-      </CardSection>);
+      <CardSection>
+      <Button
+        key={category.key}
+        style={{ backgroundColor: '#57d1c9' }}
+      >
+        <Text> {category.category} </Text>
+      </Button>
+      </CardSection>
+    );
   }
 
   renderCategories() {
@@ -130,11 +136,13 @@ class Profile extends Component {
         <Card>
           <CardSection>
             <Text>Categories: </Text>
-            {this.categoryList()}
           </CardSection>
+          <ScrollView>
+          {this.categoryList()}
+          </ScrollView>
           <CardSection>
             <Button
-            style={{ backgroundColor: '#57d1c9' }}
+            style={{ backgroundColor: '#6293af' }}
             onPress={() => this.setState({ showModal: !this.state.showModal })}
             title="Add New Categories"
             >
@@ -149,6 +157,7 @@ class Profile extends Component {
   render() {
     const { firstName, lastName } = this.state;
     return (
+      <ScrollView>
       <Card>
         <Card flexDirection="row">
           <Avatar
@@ -162,6 +171,7 @@ class Profile extends Component {
 
         {this.renderCategories()}
       </Card>
+    </ScrollView>
     );
   }
 }
