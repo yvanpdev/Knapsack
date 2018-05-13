@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { Card, Avatar } from 'react-native-elements';
 import firebase from 'firebase';
+import Icon from 'react-native-vector-icons/EvilIcons';
 import { Text, TextInput, Modal, View, ScrollView } from 'react-native';
 import { CardSection, Button } from './common';
+
 
 class Profile extends Component {
   constructor(props) {
@@ -88,6 +90,13 @@ class Profile extends Component {
       });
   }
 
+  deleteUserCategory(key) {
+    const { currentUser } = firebase.auth();
+
+    firebase.database().ref(`/users/${currentUser.uid}/userinfo/categories`)
+    .child(key).remove();
+  }
+
   showModal() {
     return (
       <Modal
@@ -127,6 +136,13 @@ class Profile extends Component {
       >
         <Text> {category.category} </Text>
       </Button>
+      <Icon
+        onPress={this.deleteUserCategory.bind(this, category.key)}
+        name="trash"
+        size={30}
+        color="black"
+        style={styles.trash}
+      />
       </CardSection>
     );
   }
@@ -192,6 +208,9 @@ const styles = {
     position: 'relative',
     flex: 1,
     justifyContent: 'center'
+  },
+  trash: {
+    padding: 10
   }
 };
 
