@@ -38,6 +38,7 @@ class Profile extends Component {
       newCategory: '',
       showModal: false
     });
+    this.fetchUserCategories();
   }
 
   onDecline() {
