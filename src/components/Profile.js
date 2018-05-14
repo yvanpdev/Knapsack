@@ -21,13 +21,15 @@ class Profile extends Component {
       showModal: false
     };
 
-    this.fetchUserInfo();
-    this.fetchUserCategories();
     this.onInputChanged = this.onInputChanged.bind(this);
     this.onAccept = this.onAccept.bind(this);
     this.onDecline = this.onDecline.bind(this);
   }
 
+  componentWillMount() {
+    this.fetchUserInfo();
+    this.fetchUserCategories();
+  }
   onAccept() {
     const { currentUser } = firebase.auth();
     firebase.database().ref(`/users/${currentUser.uid}/userinfo/categories`)
@@ -130,9 +132,8 @@ class Profile extends Component {
 
   categoryList() {
     return this.state.categories.map(category =>
-      <CardSection>
+      <CardSection key={category.key}>
       <Button
-        key={category.key}
         style={{ backgroundColor: '#57d1c9' }}
       >
         <Text> {category.category} </Text>
