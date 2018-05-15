@@ -21,3 +21,10 @@ A react-native application that will hold videos that are of interest to the use
 Premade Account:
   email: test@email.com
   password: password
+
+## Extra info please read:
+NOTE - In order for any of the icons to appear, the following workaround needs to be done because of a react-native bug.
+
+### Workaround
+- Remove the following file and then restart the packager:
+    `./node_modules/react-native/local-cli/core/__fixtures__/files/package.json`
